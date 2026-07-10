@@ -1,10 +1,9 @@
 <?php
+require_once "../config/session.php";
+requireAdmin();
+
 include('../includes/db.php');
-?>
 
-<h2>Admin Dashboard</h2>
-
-<?php
 // Count users
 $users = mysqli_query($conn, "SELECT * FROM users");
 $user_count = mysqli_num_rows($users);
@@ -17,6 +16,8 @@ $lost_count = mysqli_num_rows($lost);
 $claims = mysqli_query($conn, "SELECT * FROM claims");
 $claim_count = mysqli_num_rows($claims);
 ?>
+
+<h2>Admin Dashboard</h2>
 
 <p>Total Users: <?php echo $user_count; ?></p>
 <p>Total Lost Items: <?php echo $lost_count; ?></p>
