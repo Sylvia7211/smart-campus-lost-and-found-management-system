@@ -1,4 +1,7 @@
 <?php
+require_once("../config/session.php");
+requireAdmin();
+
 require_once("../config/database.php");
 
 // Count Users
@@ -29,77 +32,102 @@ $notificationCount = mysqli_fetch_assoc($notificationResult)['total'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body{
-            font-family: Arial, sans-serif;
-            background:#f4f4f4;
-            margin:0;
-            padding:30px;
+            background:#f4f6f9;
+            font-family:Arial, sans-serif;
         }
 
-        h1{
+        .header{
+            background:#0d6efd;
+            color:#fff;
+            padding:20px;
             text-align:center;
-            color:#333;
         }
 
         .container{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-            gap:20px;
             margin-top:30px;
         }
 
         .card{
-            background:#fff;
-            padding:20px;
+            border:none;
             border-radius:10px;
-            box-shadow:0 2px 10px rgba(0,0,0,.1);
-            text-align:center;
+            box-shadow:0 2px 8px rgba(0,0,0,.1);
         }
 
         .card h2{
+            color:#0d6efd;
             font-size:40px;
-            color:#007bff;
-            margin:10px 0;
+            font-weight:bold;
         }
 
-        .card p{
-            font-size:18px;
-            color:#555;
+        .logout{
+            margin-top:30px;
+            text-align:center;
         }
     </style>
 </head>
 
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="header">
+    <h1>Smart Campus Lost & Found Management System</h1>
+    <h4>Admin Dashboard</h4>
+
+    <p>
+        Welcome,
+        <strong><?php echo htmlspecialchars($_SESSION['full_name']); ?></strong>
+    </p>
+</div>
 
 <div class="container">
 
-    <div class="card">
-        <p>Total Users</p>
-        <h2><?php echo $userCount; ?></h2>
-    </div>
+<div class="row g-4">
 
-    <div class="card">
-        <p>Lost Items</p>
-        <h2><?php echo $lostCount; ?></h2>
-    </div>
+<div class="col-md-3">
+<div class="card p-4 text-center">
+<h5>Total Users</h5>
+<h2><?php echo $userCount; ?></h2>
+</div>
+</div>
 
-    <div class="card">
-        <p>Found Items</p>
-        <h2><?php echo $foundCount; ?></h2>
-    </div>
+<div class="col-md-3">
+<div class="card p-4 text-center">
+<h5>Lost Items</h5>
+<h2><?php echo $lostCount; ?></h2>
+</div>
+</div>
 
-    <div class="card">
-        <p>Claims</p>
-        <h2><?php echo $claimCount; ?></h2>
-    </div>
+<div class="col-md-3">
+<div class="card p-4 text-center">
+<h5>Found Items</h5>
+<h2><?php echo $foundCount; ?></h2>
+</div>
+</div>
 
-    <div class="card">
-        <p>Notifications</p>
-        <h2><?php echo $notificationCount; ?></h2>
-    </div>
+<div class="col-md-3">
+<div class="card p-4 text-center">
+<h5>Claims</h5>
+<h2><?php echo $claimCount; ?></h2>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="card p-4 text-center">
+<h5>Notifications</h5>
+<h2><?php echo $notificationCount; ?></h2>
+</div>
+</div>
+
+</div>
+
+<div class="logout">
+    <a href="../authentication/logout.php" class="btn btn-danger">
+        Logout
+    </a>
+</div>
 
 </div>
 
