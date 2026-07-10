@@ -4,8 +4,8 @@ require_once "../config/session.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Temporary user ID until authentication is completed
-    $user_id = 1;
+    // Get user ID from session
+    $user_id = $_SESSION['user_id'];
 
     $item_name = trim($_POST['item_name']);
     $category = trim($_POST['category']);
@@ -58,14 +58,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
 
-        echo "<script>
-                alert('Lost Item Reported Successfully!');
-                window.location='../lost/report_lost.php';
-              </script>";
+        $_SESSION['success'] = "Lost Item Reported Successfully!";
+        header("Location: ../dashboard/dashboard.php?page=my_lost_items");
+        exit();
 
     } else {
 
-        echo "Database Error: " . $stmt->error;
+        $_SESSION['error'] = "Database Error: " . $stmt->error;
+        header("Location: ../dashboard/dashboard.php?page=report_lost");
+        exit();
 
     }
 
